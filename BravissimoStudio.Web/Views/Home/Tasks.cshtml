@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Tasks";
+}
+
+
+
+<div class="alert alert-danger" role="alert" style="margin-top:35px">
+    <b>Bugs to fix:</b>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5><b>#1 [Courses] One course is missing from 'Aggregated courses' table</b></h5>
+    </div>
+
+    <div class="card-body" style="margin-left:10px; margin-bottom:10px">
+        <p class="card-text" style="margin-left:10px; margin-top:10px">
+            There are 8 courses in total, but only 7 are shown in the table. <br /><br />
+            <b>Expected result:</b> <i>all 8 courses should be shown in the table</i>
+        </p>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-header">
+        <h5><b>#2 [Courses] Filter by 'teacher name' is not working correctly</b></h5>
+    </div>
+
+    <div class="card-body" style="margin-left:10px; margin-bottom:10px">
+        <p class="card-text" style="margin-left:10px; margin-top:10px">
+            1. Type 'Lucrezia' into the 'teacher name' search input <br />
+            2. Observe that no courses are shown <br />
+            3. Type 'Lucrezia Oddone' into the 'teacher name' search input <br />
+            4. Observe that all corresponsing courses are shown <br /><br />
+
+            <b>Expected result:</b> <i>Filter by teacher name should work even if only a part of the name was entered by user</i>
+        </p>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-header">
+        <h5><b>#3 [Courses] Sometimes filter returns redundant rows</b></h5>
+    </div>
+
+    <div class="card-body" style="margin-left:10px; margin-bottom:10px">
+        <p class="card-text" style="margin-left:10px; margin-top:10px">
+            1. Fill search inputs with the following data: <i>A1, Lucrezia Oddone, 1</i> <br />
+            2. Observe that the result is shown correctly <br />
+            3. Fill search inputs with the following data: <i>B2, Viktor Krasnov, 4 </i><br />
+            4. Observe that there are two results. The first one with the lessons number '3' does not fit the filter criteria <br /><br />
+
+            <b>Expected result:</b> <i>Filter should work correctly</i>
+        </p>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-header">
+        <h5><b>#4 [Teachers] 'Total payment' in 'Aggregated teachers' is empty is teacher has no lessons</b></h5>
+    </div>
+
+    <div class="card-body" style="margin-left:10px; margin-bottom:10px">
+        <p class="card-text" style="margin-left:10px; margin-top:10px">
+            For the #5 teacher fields 'Salary' and 'Total payment' are displayed as '0', which is incorrect. <br />
+            Each teacher has a basic fixed salary, and even if he/she has no lessons, tha payment should be greater than 0.
+            <br /> <br />
+            <b>Expected result:</b> <i>Correct values in 'Salary' and 'Total payment' fields</i>
+        </p>
+    </div>
+</div>
+
+<br />
+
+<div class="alert alert-success" role="alert" style="margin-top:20px">
+    <b>Implementation task:</b>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5><b>Implement the 'Lessons' tab</b></h5>
+    </div>
+
+    <div class="card-body" style="margin-left:10px; margin-bottom:10px">
+        <p class="card-text" style="margin-left:10px; margin-top:10px">
+            Content of the 'Lessons' tab shoud show the aggregated lessons information as in the example below: <br />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Lesson number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>02.04.19</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>03.04.19</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </p>
+       
+
+    </div>
+</div>

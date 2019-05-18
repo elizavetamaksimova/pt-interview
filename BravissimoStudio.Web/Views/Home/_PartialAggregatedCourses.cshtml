@@ -1,0 +1,31 @@
+﻿<table class="table table-striped" id="coursesTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">StartTime</th>
+            <th scope="col">EndTime</th>
+            <th scope="col">Payroll coefficient</th>
+            <th scope="col">Last month's lessons</th>
+            <th scope="col">Teachers</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @for (int i = 0; i < Model.AggregatedCourses.Length; i++)
+        {
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@Model.AggregatedCourses[i].Name</td>
+                <td>@Model.AggregatedCourses[i].StartTime</td>
+                <td>@Model.AggregatedCourses[i].EndTime</td>
+                <td>@Model.AggregatedCourses[i].Coefficient</td>
+                <td>@Model.AggregatedCourses[i].LessonsCount</td>
+                <td>@string.Join(", ", Model.AggregatedCourses[i].TeachersInvolved)</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

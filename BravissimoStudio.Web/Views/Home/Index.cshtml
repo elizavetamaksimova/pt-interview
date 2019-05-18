@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Board";
+}
+
+<div class="jumbotron">
+    <h1>Bravissimo Studio</h1>
+    <p class="lead">Scuola della lingua italiana</p>
+</div>
+
+<div class="col-lg-12">
+    <div>
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="nav-item active">
+                <a data-toggle="tab" href="#board1" role="tab" aria-controls="board1" aria-selected="true"><h4>Courses</h4></a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#board2" role="tab" aria-controls="board2" aria-selected="false"><h4>Teachers</h4></a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#board3" role="tab" aria-controls="board3" aria-selected="false"><h4>Lessons</h4></a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade in active" id="board1">
+                <h3>All available courses <small>(@Model.Courses.Length courses)</small>: </h3>
+
+                <ul class="list-group">
+                    @for (int i = 0; i < Model.Courses.Length; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            <li class="list-group-item list-group-item-action list-group-item-success">
+                                @Model.Courses[i]
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item list-group-item-action list-group-item-light">
+                                @Model.Courses[i]
+                            </li>
+                        }
+                    }
+                </ul>
+                
+                <div><h3>Aggregated courses: </h3></div>
+
+                @Html.Partial("_PartialAggregatedCourses")
+
+                Filters: &nbsp;
+                <input type="text" id="courseName" name="courseName" placeholder="Course name" />
+                <input type="text" id="teacherName" name="teacherName" placeholder="Teacher name" />
+                <input type="number" id="lessonsCount" name="lessonsCount" placeholder="Lessons count >=" />
+                <button id="SearchButton" type="submit" class="btn btn-info" value="Search">Search</button>
+
+                <br />  <br />
+
+            </div>
+
+            <div class="tab-pane fade" id="board2">
+                <h3>All available teachers <small>(@Model.Teachers.Length teachers)</small>: </h3>
+
+                <ul class="list-group">
+                    @for (int i = 0; i < Model.Teachers.Length; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            <li class="list-group-item list-group-item-action list-group-item-info">
+                                @Model.Teachers[i]
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item list-group-item-action list-group-item-light">
+                                @Model.Teachers[i]
+                            </li>
+                        }
+                    }
+                </ul>
+                
+                <div><h3>Aggregated teachers: </h3></div>
+
+                @Html.Partial("_PartialAggregatedTeachers")
+            </div>
+
+            <div class="tab-pane fade" id="board3">
+                <br />
+                <h5>Why is it empty here?</h5>
+            </div>
+
+        </div>
+    </div>
+    
+
+    
+
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('#SearchButton').click(function () {
+            $.ajax({
+                url: "/Home/FilterCourses",
+                type: "POST",
+                dataType: "html",
+                data: {
+                    courseName: $('#courseName').val(),
+                    teacherName: $('#teacherName').val(),
+                    lessonsCount: $('#lessonsCount').val()
+                },
+                success: function (data) {
+                    $("#coursesTable").html(data);
+                    $("#coursesTable").show();
+
+                }
+            })
+        });
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $("#courseName").on("keypress", function (event) {
+            var englishAlphabetAndWhiteSpace = /[A-Za-z0-9 ]/g;
+
+            var key = String.fromCharCode(event.which);
+            if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+                return true;
+            }
+            return false;
+        });
+
+        $('#courseName').on("paste", function (e) {
+            e.preventDefault();
+        });
+
+    </script>
+}
+
+

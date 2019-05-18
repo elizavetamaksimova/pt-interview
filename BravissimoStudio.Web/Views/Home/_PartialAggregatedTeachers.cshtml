@@ -1,0 +1,29 @@
+﻿<table class="table table-striped" id="coursesTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Last month's lessons</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Hour rate</th>
+            <th scope="col">Total payment</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @for (int i = 0; i < Model.AggregatedTeachers.Length; i++)
+        {
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@Model.AggregatedTeachers[i].Name</td>
+                <td>@Model.AggregatedTeachers[i].LessonsCount</td>
+                <td>@Model.AggregatedTeachers[i].FixedSalary</td>
+                <td>@Model.AggregatedTeachers[i].HourRate</td>
+                <td>@Model.AggregatedTeachers[i].TotalPayment</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
