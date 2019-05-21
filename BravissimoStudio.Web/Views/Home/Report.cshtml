@@ -11,15 +11,37 @@
     <form>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Cause of issue:</label>
-            <textarea style="max-width: 2800px;" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Please describe why the code that was causing this issue was incorrect"></textarea>
+            <textarea style="max-width: 2800px;" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Please describe why the code that was causing this issue was incorrect">@ViewBag.CausedBy</textarea>
         </div>
 
         <br />
 
         <div class="form-group">
             <label for="exampleFormControlTextarea2">Fix details:</label>
-            <textarea style="max-width: 2800px;" class="form-control" id="exampleFormControlTextarea2" rows="5" placeholder="Please describe what exactly have you fixed in code/SQL"></textarea>
+            <textarea style="max-width: 2800px;" class="form-control" id="exampleFormControlTextarea2" rows="5" placeholder="Please describe what exactly have you fixed in code/SQL">@ViewBag.FixDetails</textarea>
         </div>
+
+        <input type="button" id="SaveButton" class="btn btn-success" value="Save" />
     </form>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('#SaveButton').click(function () {
+            $.ajax({
+                url: "/Home/SaveReport",
+                type: "POST",
+                dataType: "html",
+                data: {
+                    causedBy: $('#exampleFormControlTextarea1').val(),
+                    fixDetails: $('#exampleFormControlTextarea2').val()
+                },
+                success: function (data) {
+                    alert("Saved successfully");
+                }
+            })
+        });
+    </script>
+}
 

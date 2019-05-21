@@ -7,7 +7,7 @@ namespace BravissimoStudio.DA
     {
         public string[] SelectAllCourses()
         {
-            string selectCoursesQuery = @"SELECT name FROM Courses";
+            string selectCoursesQuery = @"SELECT name FROM Courses ORDER BY name ASC";
 
             var coursesList = new List<string>();
 
@@ -35,7 +35,8 @@ namespace BravissimoStudio.DA
                 JOIN Lessons AS l
                     ON c.id = l.course_id
                 WHERE DATEPART(m, l.lesson_date) = DATEPART(m, DATEADD(m, -1, GETDATE()))
-                GROUP BY c.id, c.name, c.start_time, c.end_time, c.coefficient";
+                GROUP BY c.id, c.name, c.start_time, c.end_time, c.coefficient
+                ORDER BY c.name ASC";
 
             var coursesList = new List<Course>();
 

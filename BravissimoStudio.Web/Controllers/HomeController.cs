@@ -1,6 +1,7 @@
 ﻿using BravissimoStudio.BL;
 using BravissimoStudio.Models;
 using BravissimoStudio.Web.Models;
+using System.IO;
 using System.Web.Mvc;
 
 namespace BravissimoStudio.Web.Controllers
@@ -10,15 +11,14 @@ namespace BravissimoStudio.Web.Controllers
         private CoursesService _coursesService = new CoursesService();
         private TeachersService _teachersService = new TeachersService();
 
+        private readonly string CausedByPath = Path.Combine(@"C:\Users\1\Documents\Work\PT_Interview", "CausedBy.txt");
+        private readonly string FixDetailsPath = Path.Combine(@"C:\Users\1\Documents\Work\PT_Interview", "FixDetails.txt");
+
         public ActionResult Index()
         {
             string[] coursesNames = _coursesService.GetAllCourses();
 
             Course[] aggregatedCourses = _coursesService.GetAggregatedCourses();
-
-            // _service.FilterCourses(ref aggregatedCourses, "B2", "Viktor Krasnov", 4); // not working set of data
-            //_service.FilterCourses(ref aggregatedCourses, "A2", "Lucrezia Oddone", 1); // working set of data
-
             string[] teachers = _teachersService.GetAllTeachers();
 
             Teacher[] aggregatedTeachers = _teachersService.GetAggregatedTeachers();
@@ -39,7 +39,7 @@ namespace BravissimoStudio.Web.Controllers
         {
             Course[] aggregatedCourses = _coursesService.GetAggregatedCourses();
 
-            _coursesService.FilterCourses(ref aggregatedCourses, courseName, teacherName, lessonsCount); // working set of data
+            _coursesService.FilterCourses(ref aggregatedCourses, courseName, teacherName, lessonsCount);
 
             var model = new BoardModel
             {
@@ -56,7 +56,37 @@ namespace BravissimoStudio.Web.Controllers
 
         public ActionResult Report()
         {
+            if (System.IO.File.Exists(CausedByPath))
+            {
+                using (StreamReader reader = new StreamReader(CausedByPath))
+                {
+                    ViewBag.CausedBy = reader.ReadToEnd();
+                }
+            }
+
+            if (System.IO.File.Exists(FixDetailsPath))
+            {
+                using (StreamReader reader = new StreamReader(FixDetailsPath))
+                {
+                    ViewBag.FixDetails = reader.ReadToEnd();
+                }
+            }
+
             return View();
+        }
+
+        [HttpPost]
+        public void SaveReport(string causedBy, string fixDetails)
+        {
+            using (StreamWriter writer = new StreamWriter(CausedByPath))
+            {
+                writer.Write(causedBy);
+            }
+
+            using (StreamWriter writer = new StreamWriter(FixDetailsPath))
+            {
+                writer.Write(fixDetails);
+            }
         }
     }
 }

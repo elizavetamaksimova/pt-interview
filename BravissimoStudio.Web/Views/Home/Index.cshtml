@@ -23,7 +23,7 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade in active" id="board1">
-                <h3>All available courses <small>(@Model.Courses.Length courses)</small>: </h3>
+                <h3>All available courses <small>(@Model.Courses.Length courses):</small> </h3>
 
                 <ul class="list-group">
                     @for (int i = 0; i < Model.Courses.Length; i++)
@@ -58,7 +58,7 @@
             </div>
 
             <div class="tab-pane fade" id="board2">
-                <h3>All available teachers <small>(@Model.Teachers.Length teachers)</small>: </h3>
+                <h3>All available teachers <small>(@Model.Teachers.Length teachers):</small> </h3>
 
                 <ul class="list-group">
                     @for (int i = 0; i < Model.Teachers.Length; i++)
@@ -90,9 +90,6 @@
 
         </div>
     </div>
-    
-
-    
 
 </div>
 
@@ -129,10 +126,6 @@
                 return true;
             }
             return false;
-        });
-
-        $('#courseName').on("paste", function (e) {
-            e.preventDefault();
         });
 
     </script>
