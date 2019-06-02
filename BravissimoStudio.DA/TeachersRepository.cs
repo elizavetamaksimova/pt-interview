@@ -23,18 +23,18 @@ namespace BravissimoStudio.DA.Repositories
 
         public Teacher[] SelectAggregatedTeachers()
         {
-            string selectAggregatedTeachersQuery = 
+            string selectAggregatedTeachersQuery =
                 @"SELECT t.name AS Name, 
-		                COUNT(1) AS LessonsCount,
-		                t.fixed_salary AS Salary,
-		                t.hour_rate AS HourRate,
-		                t.fixed_salary + SUM(t.hour_rate * 2 * c.coefficient) AS TotalPayment
-                FROM Lessons AS l
-                JOIN Courses AS c
-	                ON c.id = l.course_id
-                JOIN Teachers AS t
-	                ON t.id = l.teacher_id
-                GROUP BY l.teacher_id, t.name, t.fixed_salary, t.hour_rate";
+		            COUNT(1) AS LessonsCount,
+		            t.fixed_salary AS Salary,
+		            t.hour_rate AS HourRate,
+		            t.fixed_salary + COALESCE(SUM(t.hour_rate * 2 * c.coefficient), 0) AS TotalPayment
+            FROM Lessons AS l
+            JOIN Courses AS c
+            ON c.id = l.course_id
+            JOIN Teachers AS t
+            ON t.id = l.teacher_id
+            GROUP BY l.teacher_id, t.name, t.fixed_salary, t.hour_rate";
 
             var teachersList = new List<Teacher>();
 

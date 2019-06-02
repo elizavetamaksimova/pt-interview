@@ -34,7 +34,6 @@ namespace BravissimoStudio.DA
                 FROM Courses AS c
                 JOIN Lessons AS l
                     ON c.id = l.course_id
-                WHERE DATEPART(m, l.lesson_date) = DATEPART(m, DATEADD(m, -1, GETDATE()))
                 GROUP BY c.id, c.name, c.start_time, c.end_time, c.coefficient
                 ORDER BY c.name ASC";
 
@@ -69,7 +68,6 @@ namespace BravissimoStudio.DA
                 FROM Lessons AS l
                 JOIN Teachers AS t
 	                ON l.teacher_id = t.id
-                WHERE DATEPART(m, l.lesson_date) = DATEPART(m, DATEADD(m, -1, GETDATE()))
                 ORDER BY l.course_id";
 
             Dictionary<int, List<string>> teachersDict = new Dictionary<int, List<string>>();
